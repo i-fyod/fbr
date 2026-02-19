@@ -1,0 +1,67 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+body {
+  margin: 0;
+  background: $bg-color;
+  font-family: Arial, sans-serif;
+}
+
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: $spacing;
+}
+
+.product-card {
+  width: 340px;
+  background: $bg-color;
+  @include simple-border();
+  border-radius: 6px;
+  padding: $spacing;
+  box-sizing: border-box;
+
+  &__media {
+    text-align: center;
+    margin-bottom: $spacing;
+  }
+  &__image {
+    width: 100%;
+    height: auto;
+    max-width: 250px;
+    margin: 0 auto;
+    display: block;
+    @include simple-border(#ddd);
+    border-radius: 3px;
+  }
+
+  &__content {
+    margin-top: 0;
+  }
+  &__title {
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+    color: $main-color;
+  }
+  &__description {
+    margin: 0 0 12px 0;
+    font-size: 1em;
+    color: $main-color;
+  }
+  &__meta {
+    margin-top: $spacing;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__action {
+    color: $main-color;
+    text-decoration: underline;
+    font-size: 1em;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+}

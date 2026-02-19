@@ -1,0 +1,5 @@
+@use "variables" as *;
+
+@mixin simple-border($color: $border-color) {
+  border: 1px solid $color;
+}
