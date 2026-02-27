@@ -76,3 +76,13 @@ curl -s -X PUT http://localhost:3000/products/1 \
 
 curl -s -X DELETE http://localhost:3000/products/1
 ```
+
+## 3) Отчет по тестированию API (Postman)
+
+Путь: `practice-03-products-api-report/`
+
+Что внутри:
+- `practice-03-products-api-report/REPORT.md` - шаблон отчета (что проверяли и какие скриншоты приложить)
+- `practice-03-products-api-report/assets/requests/practice-02-products-api.postman_collection.json` - коллекция Postman для API из Практики 2
+- `practice-03-products-api-report/assets/requests/openweathermap-api.postman_collection.json` - коллекция Postman для внешнего API (OpenWeatherMap) (ключ задаётся переменной)
+- `practice-03-products-api-report/assets/screenshots/` - папка для скриншотов

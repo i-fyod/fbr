@@ -1,0 +1,103 @@
+{
+  "info": {
+    "_postman_id": "2e7b4db1-f8a5-4e1d-8ff8-3fcb1b1b8a70",
+    "name": "Practice 03 - OpenWeatherMap",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Current Weather (City) - GET /data/2.5/weather",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{owmBase}}/data/2.5/weather?q=Moscow&units=metric&lang=ru&appid={{owmApiKey}}",
+          "host": ["{{owmBase}}"],
+          "path": ["data", "2.5", "weather"],
+          "query": [
+            { "key": "q", "value": "Moscow" },
+            { "key": "units", "value": "metric" },
+            { "key": "lang", "value": "ru" },
+            { "key": "appid", "value": "{{owmApiKey}}" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Current Weather (Coords) - GET /data/2.5/weather",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{owmBase}}/data/2.5/weather?lat=55.7558&lon=37.6173&units=metric&lang=ru&appid={{owmApiKey}}",
+          "host": ["{{owmBase}}"],
+          "path": ["data", "2.5", "weather"],
+          "query": [
+            { "key": "lat", "value": "55.7558" },
+            { "key": "lon", "value": "37.6173" },
+            { "key": "units", "value": "metric" },
+            { "key": "lang", "value": "ru" },
+            { "key": "appid", "value": "{{owmApiKey}}" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Forecast 5 days - GET /data/2.5/forecast",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{owmBase}}/data/2.5/forecast?q=Moscow&units=metric&lang=ru&appid={{owmApiKey}}",
+          "host": ["{{owmBase}}"],
+          "path": ["data", "2.5", "forecast"],
+          "query": [
+            { "key": "q", "value": "Moscow" },
+            { "key": "units", "value": "metric" },
+            { "key": "lang", "value": "ru" },
+            { "key": "appid", "value": "{{owmApiKey}}" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Air Pollution - GET /data/2.5/air_pollution",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{owmBase}}/data/2.5/air_pollution?lat=55.7558&lon=37.6173&appid={{owmApiKey}}",
+          "host": ["{{owmBase}}"],
+          "path": ["data", "2.5", "air_pollution"],
+          "query": [
+            { "key": "lat", "value": "55.7558" },
+            { "key": "lon", "value": "37.6173" },
+            { "key": "appid", "value": "{{owmApiKey}}" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Geocoding (Direct) - GET /geo/1.0/direct",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{owmBase}}/geo/1.0/direct?q=Moscow&limit=1&appid={{owmApiKey}}",
+          "host": ["{{owmBase}}"],
+          "path": ["geo", "1.0", "direct"],
+          "query": [
+            { "key": "q", "value": "Moscow" },
+            { "key": "limit", "value": "1" },
+            { "key": "appid", "value": "{{owmApiKey}}" }
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "owmBase",
+      "value": "https://api.openweathermap.org"
+    },
+    {
+      "key": "owmApiKey",
+      "value": "YOUR_API_KEY"
+    }
+  ]
+}
