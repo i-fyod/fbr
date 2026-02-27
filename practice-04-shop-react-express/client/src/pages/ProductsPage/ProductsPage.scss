@@ -1,0 +1,250 @@
+$bg: #f7f7f7;
+$panel: #ffffff;
+$border: #d8d8d8;
+$text: #222;
+$muted: #666;
+$primary: #0b5ed7;
+$danger: #b02a37;
+
+@mixin card($radius: 10px) {
+  border: 1px solid $border;
+  border-radius: $radius;
+  background: $panel;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $bg;
+  color: $text;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.header {
+  background: $panel;
+  border-bottom: 1px solid $border;
+
+  &__inner {
+    max-width: 980px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__right {
+    color: $muted;
+    font-size: 13px;
+  }
+}
+
+.brand {
+  font-weight: 700;
+}
+
+.main {
+  flex: 1;
+}
+
+.container {
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  .title {
+    margin: 0;
+    font-size: 20px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.empty {
+  @include card(10px);
+  padding: 14px;
+  color: $muted;
+}
+
+.btn {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid $border;
+  background: $panel;
+  color: $text;
+  cursor: pointer;
+
+  &--primary {
+    border-color: $primary;
+    color: $primary;
+  }
+
+  &--danger {
+    border-color: $danger;
+    color: $danger;
+  }
+}
+
+.productCard {
+  @include card(12px);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__title {
+    font-weight: 700;
+  }
+
+  &__category {
+    color: $muted;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  &__desc {
+    color: $muted;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  &__meta {
+    display: grid;
+    gap: 4px;
+    font-size: 14px;
+  }
+
+  &__label {
+    color: $muted;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+}
+
+.footer {
+  background: $panel;
+  border-top: 1px solid $border;
+
+  &__inner {
+    max-width: 980px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 14px 16px;
+    color: $muted;
+    font-size: 13px;
+  }
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal {
+  width: 100%;
+  max-width: 520px;
+  @include card(14px);
+  overflow: hidden;
+
+  &__header {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $border;
+  }
+
+  &__title {
+    font-weight: 700;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 4px;
+  }
+}
+
+.iconBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid $border;
+  background: $panel;
+  cursor: pointer;
+}
+
+.form {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 520px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.input,
+.textarea {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid $border;
+  background: $panel;
+  color: $text;
+  outline: none;
+  font-size: 14px;
+}

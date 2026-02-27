@@ -86,3 +86,23 @@ curl -s -X DELETE http://localhost:3000/products/1
 - `practice-03-products-api-report/assets/requests/practice-02-products-api.postman_collection.json` - коллекция Postman для API из Практики 2
 - `practice-03-products-api-report/assets/requests/openweathermap-api.postman_collection.json` - коллекция Postman для внешнего API (OpenWeatherMap) (ключ задаётся переменной)
 - `practice-03-products-api-report/assets/screenshots/` - папка для скриншотов
+
+## 4) Интернет-магазин (React + Express)
+
+Путь: `practice-04-shop-react-express/`
+
+Что сделано:
+- Express API (CRUD) для товаров + CORS + логирование + обработчики ошибок
+- React-клиент (axios + Sass), связан с API
+
+Как запустить:
+1. Бэкенд:
+   - `cd practice-04-shop-react-express/server`
+   - `npm install`
+   - `npm start`
+2. Фронтенд:
+   - `cd practice-04-shop-react-express/client`
+   - `npm install`
+   - `npm start`
+
+Подробности: `practice-04-shop-react-express/README.md`
