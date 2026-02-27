@@ -1,6 +1,8 @@
 const cors = require("cors");
 const express = require("express");
 const { nanoid } = require("nanoid");
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const app = express();
 const port = Number(process.env.PORT) || 3000;
@@ -31,6 +33,75 @@ app.use((req, res, next) => {
   });
   next();
 });
+
+/**
+ * @openapi
+ * openapi: 3.0.0
+ * info:
+ *   title: Practice 4/5 API
+ *   version: 1.0.0
+ *   description: Express API for shop + users (Practice 5 Swagger)
+ * servers:
+ *   - url: http://localhost:3000
+ * tags:
+ *   - name: Users
+ *     description: CRUD for users
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required: [id, name, age]
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: User id (nanoid)
+ *           example: a1B2c3
+ *         name:
+ *           type: string
+ *           example: Петр
+ *         age:
+ *           type: integer
+ *           minimum: 0
+ *           maximum: 150
+ *           example: 18
+ *     UserCreate:
+ *       type: object
+ *       required: [name, age]
+ *       properties:
+ *         name:
+ *           type: string
+ *           example: Иван
+ *         age:
+ *           type: integer
+ *           minimum: 0
+ *           maximum: 150
+ *           example: 20
+ *     UserPatch:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           example: Дарья
+ *         age:
+ *           type: integer
+ *           minimum: 0
+ *           maximum: 150
+ *           example: 21
+ */
+
+const swaggerSpec = swaggerJsdoc({
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Practice 4/5 API",
+      version: "1.0.0",
+    },
+  },
+  apis: ["./src/index.js"],
+});
+
+// Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * In-memory storage (for practice work)
@@ -128,6 +199,16 @@ let products = [
   },
 ];
 
+/**
+ * In-memory users (for Practice 5 Swagger task)
+ * User shape: { id: string, name: string, age: number }
+ */
+let users = [
+  { id: nanoid(6), name: "Петр", age: 16 },
+  { id: nanoid(6), name: "Иван", age: 18 },
+  { id: nanoid(6), name: "Дарья", age: 20 },
+];
+
 function findProductOr404(id, res) {
   const product = products.find((p) => p.id === id);
   if (!product) {
@@ -145,6 +226,46 @@ function parseNumber(v) {
   if (typeof v === "number") return v;
   if (typeof v === "string" && v.trim() !== "") return Number(v);
   return NaN;
+}
+
+function findUserOr404(id, res) {
+  const user = users.find((u) => u.id === id);
+  if (!user) {
+    res.status(404).json({ error: "User not found" });
+    return null;
+  }
+  return user;
+}
+
+function validateUserCreate(payload) {
+  const name = payload?.name;
+  const age = parseNumber(payload?.age);
+
+  if (!isNonEmptyString(name)) return "Поле 'name' обязательно";
+  if (!Number.isInteger(age) || age < 0 || age > 150) {
+    return "Поле 'age' должно быть целым числом 0-150";
+  }
+
+  return { name: name.trim(), age };
+}
+
+function validateUserPatch(payload) {
+  if (!payload || typeof payload !== "object") return "Некорректное тело запроса";
+  if (payload.name === undefined && payload.age === undefined) return "Nothing to update";
+
+  const out = {};
+  if (payload.name !== undefined) {
+    if (!isNonEmptyString(payload.name)) return "Поле 'name' должно быть непустой строкой";
+    out.name = payload.name.trim();
+  }
+  if (payload.age !== undefined) {
+    const age = parseNumber(payload.age);
+    if (!Number.isInteger(age) || age < 0 || age > 150) {
+      return "Поле 'age' должно быть целым числом 0-150";
+    }
+    out.age = age;
+  }
+  return out;
 }
 
 function validateCreate(payload) {
@@ -233,6 +354,152 @@ function validatePatch(payload) {
 // Health
 app.get("/", (req, res) => {
   res.type("text").send("Shop API is running");
+});
+
+/**
+ * @openapi
+ * /api/users:
+ *   get:
+ *     tags: [Users]
+ *     summary: Get all users
+ *     responses:
+ *       200:
+ *         description: Users list
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ */
+app.get("/api/users", (req, res) => {
+  res.json(users);
+});
+
+/**
+ * @openapi
+ * /api/users:
+ *   post:
+ *     tags: [Users]
+ *     summary: Create a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserCreate'
+ *     responses:
+ *       201:
+ *         description: Created user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Validation error
+ */
+app.post("/api/users", (req, res) => {
+  const validated = validateUserCreate(req.body);
+  if (typeof validated === "string") return res.status(400).json({ error: validated });
+
+  const newUser = { id: nanoid(6), ...validated };
+  users.push(newUser);
+  res.status(201).json(newUser);
+});
+
+/**
+ * @openapi
+ * /api/users/{id}:
+ *   get:
+ *     tags: [Users]
+ *     summary: Get user by id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: User
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: Not found
+ */
+app.get("/api/users/:id", (req, res) => {
+  const user = findUserOr404(req.params.id, res);
+  if (!user) return;
+  res.json(user);
+});
+
+/**
+ * @openapi
+ * /api/users/{id}:
+ *   patch:
+ *     tags: [Users]
+ *     summary: Update user partially
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserPatch'
+ *     responses:
+ *       200:
+ *         description: Updated user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Validation error
+ *       404:
+ *         description: Not found
+ */
+app.patch("/api/users/:id", (req, res) => {
+  const user = findUserOr404(req.params.id, res);
+  if (!user) return;
+
+  const validated = validateUserPatch(req.body);
+  if (typeof validated === "string") return res.status(400).json({ error: validated });
+
+  Object.assign(user, validated);
+  res.json(user);
+});
+
+/**
+ * @openapi
+ * /api/users/{id}:
+ *   delete:
+ *     tags: [Users]
+ *     summary: Delete user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: Deleted
+ *       404:
+ *         description: Not found
+ */
+app.delete("/api/users/:id", (req, res) => {
+  const id = req.params.id;
+  const exists = users.some((u) => u.id === id);
+  if (!exists) return res.status(404).json({ error: "User not found" });
+  users = users.filter((u) => u.id !== id);
+  res.status(204).send();
 });
 
 // GET /api/products

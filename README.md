@@ -1,66 +1,56 @@
 # Практические работы
 
-В репозитории две папки (две разные практические работы).
+В репозитории каждая практика лежит в отдельной папке.
 
 ## 1) Карточка товара на SASS
 
 Путь: `practice-01-product-card-sass/`
 
 Что сделано:
-- HTML-страница с карточкой товара: название, описание, фотография.
-- SASS (SCSS): переменные (>= 2), миксин (>= 1), вложенные селекторы.
-- Минимальный дизайн.
 
-Структура:
-- `practice-01-product-card-sass/index.html` - страница
-- `practice-01-product-card-sass/styles/main.scss` - основной SCSS
-- `practice-01-product-card-sass/styles/_variables.scss` - переменные (простые: цвет, отступ)
-- `practice-01-product-card-sass/styles/_mixins.scss` - один миксин (простая рамка)
-- `practice-01-product-card-sass/styles/main.css` - готовый CSS (упрощённый дизайн, можно сразу открывать)
-- `practice-01-product-card-sass/assets/product.svg` - простая картинка-заглушка
+- HTML-страница с карточкой товара (название, описание, фотография)
+- SASS (SCSS): переменные (>= 2), миксин (>= 1), вложенные селекторы
+- Минимальный дизайн
 
-Как запустить:
-1. Откройте файл `practice-01-product-card-sass/index.html` в браузере.
+Запуск:
 
-Если хотите собирать SCSS сами (опционально):
-1. Установите Sass.
-2. Соберите:
-   - `sass styles/main.scss styles/main.css`
+- Откройте `practice-01-product-card-sass/index.html` в браузере
+
+Опционально (пересобрать SCSS):
+
+```bash
+sass styles/main.scss styles/main.css
+```
 
 ## 2) CRUD API для списка товаров
 
 Путь: `practice-02-products-api/`
 
 Требования:
-- CRUD операции: просмотр всех, просмотр по id, добавление, редактирование, удаление.
-- Поля товара: `id`, `name` (название), `price` (стоимость).
 
-Технологии:
-- Node.js + Express
-- Хранилище в памяти процесса (без базы данных)
+- CRUD операции: просмотр всех, просмотр по id, добавление, редактирование, удаление
+- Поля товара: `id`, `name` (название), `price` (стоимость)
 
-Структура:
-- `practice-02-products-api/package.json`
-- `practice-02-products-api/src/index.js`
+Запуск:
 
-Как запустить:
-1. Перейдите в папку:
-   - `cd practice-02-products-api`
-2. Установите зависимости:
-   - `npm install`
-3. Запустите сервер:
-   - `npm start`
-4. Сервер стартует на:
-   - `http://localhost:3000`
+```bash
+cd practice-02-products-api
+npm install
+npm start
+```
+
+Сервер: `http://localhost:3000`
 
 Эндпоинты:
-- `GET /products` - все товары
-- `GET /products/:id` - товар по id
-- `POST /products` - добавить товар
-- `PUT /products/:id` - обновить товар
-- `DELETE /products/:id` - удалить товар
+
+- `GET /products`
+- `GET /products/:id`
+- `POST /products`
+- `PUT /products/:id`
+- `DELETE /products/:id`
 
 Примеры запросов:
+
 ```bash
 curl -s http://localhost:3000/products
 
@@ -82,27 +72,51 @@ curl -s -X DELETE http://localhost:3000/products/1
 Путь: `practice-03-products-api-report/`
 
 Что внутри:
-- `practice-03-products-api-report/REPORT.md` - шаблон отчета (что проверяли и какие скриншоты приложить)
-- `practice-03-products-api-report/assets/requests/practice-02-products-api.postman_collection.json` - коллекция Postman для API из Практики 2
-- `practice-03-products-api-report/assets/requests/openweathermap-api.postman_collection.json` - коллекция Postman для внешнего API (OpenWeatherMap) (ключ задаётся переменной)
-- `practice-03-products-api-report/assets/screenshots/` - папка для скриншотов
+
+- `practice-03-products-api-report/REPORT.md` — отчет + вставленные скриншоты
+- `practice-03-products-api-report/assets/requests/practice-02-products-api.postman_collection.json` — коллекция Postman для Практики 2
+- `practice-03-products-api-report/assets/requests/openweathermap-api.postman_collection.json` — коллекция Postman для OpenWeatherMap
+- `practice-03-products-api-report/assets/screenshots/` — исходные скриншоты
 
 ## 4) Интернет-магазин (React + Express)
 
 Путь: `practice-04-shop-react-express/`
 
 Что сделано:
+
 - Express API (CRUD) для товаров + CORS + логирование + обработчики ошибок
 - React-клиент (axios + Sass), связан с API
 
-Как запустить:
-1. Бэкенд:
-   - `cd practice-04-shop-react-express/server`
-   - `npm install`
-   - `npm start`
-2. Фронтенд:
-   - `cd practice-04-shop-react-express/client`
-   - `npm install`
-   - `npm start`
+Запуск:
+
+```bash
+# server
+cd practice-04-shop-react-express/server
+npm install
+npm start
+
+# client
+cd ../client
+npm install
+npm start
+```
 
 Подробности: `practice-04-shop-react-express/README.md`
+
+## 5) Swagger-документация для CRUD (swagger-jsdoc + swagger-ui-express)
+
+Реализация находится в: `practice-04-shop-react-express/server/`
+
+Swagger UI:
+
+- `http://localhost:3000/api-docs`
+
+Документировано:
+
+- схема `User`
+- CRUD для пользователей:
+  - `GET /api/users`
+  - `POST /api/users`
+  - `GET /api/users/:id`
+  - `PATCH /api/users/:id`
+  - `DELETE /api/users/:id`
