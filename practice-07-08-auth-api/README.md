@@ -10,22 +10,27 @@ npm install
 npm start
 ```
 
-По умолчанию сервер слушает `http://localhost:4000` (переменная `PORT` может переопределить).
+По умолчанию сервер слушает `http://localhost:4100` (переменная `PORT` может переопределить).
 
 Swagger UI:
-- `http://localhost:4000/api-docs` (или ваш `PORT`)
+- `http://localhost:4100/api-docs` (или ваш `PORT`)
 
 Как протестировать защищённые запросы в Swagger:
 1. Выполните `POST /api/auth/register`
-2. Выполните `POST /api/auth/login` и скопируйте `accessToken`
+2. Выполните `POST /api/auth/login` и скопируйте `accessToken` (в Response body он приходит полностью)
 3. Нажмите `Authorize` и вставьте: `Bearer <accessToken>`
 4. Теперь можно вызывать защищённые `GET/PUT/DELETE /api/products/:id` и `GET /api/auth/me`
+
+Примечание:
+- В блоке "Example Value" Swagger показывает примеры (они не являются реальными токенами).
+- Реальные токены выдаются только в ответе на `Try it out` для `POST /api/auth/login` и `POST /api/auth/refresh`.
 
 ## Маршруты
 
 ### Auth
 - `POST /api/auth/register` — регистрация пользователя (email, first_name, last_name, password)
-- `POST /api/auth/login` — вход, возвращает `accessToken`
+- `POST /api/auth/login` — вход, возвращает пару токенов: `accessToken`, `refreshToken`
+- `POST /api/auth/refresh` — обновление пары токенов (refresh-токен передавать в заголовке Authorization)
 - `GET /api/auth/me` — вернуть текущего пользователя (требует токен)
 
 ### Products
@@ -61,7 +66,10 @@ Swagger UI:
 
 ## Токены
 - Авторизация: заголовок `Authorization: Bearer <accessToken>`
-- Секрет JWT: `JWT_SECRET` (по умолчанию встроенный строковый секрет в dev)
+- Обновление токена: `POST /api/auth/refresh` с заголовком `Authorization: Bearer <refreshToken>`
+- Секреты:
+  - `JWT_SECRET` — для accessToken
+  - `REFRESH_SECRET` — для refreshToken
 
 ## Зависимости
 - express, cors, bcryptjs, jsonwebtoken, nanoid

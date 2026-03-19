@@ -132,11 +132,29 @@ Swagger UI:
 - Защищены `GET /api/products/:id`, `PUT /api/products/:id`, `DELETE /api/products/:id`
 
 Swagger UI:
-- `http://localhost:4000/api-docs` (или ваш `PORT`)
+- `http://localhost:4100/api-docs` (или ваш `PORT`)
 
 Запуск:
 ```bash
 cd practice-07-08-auth-api
 npm install
 npm start   # PORT=4000 по умолчанию
+```
+
+## 8-9) Refresh tokens + Frontend
+
+Бэкенд (доработан для refresh): `practice-07-08-auth-api/`
+- добавлен `POST /api/auth/refresh`
+- `POST /api/auth/login` возвращает `{ accessToken, refreshToken }`
+
+Фронтенд (React + Vite): `practice-08-09-auth-products-frontend/`
+- страницы входа и регистрации
+- управление товарами (list/create/detail/update/delete)
+- авто-refresh accessToken при 401
+
+Запуск фронтенда:
+```bash
+cd practice-08-09-auth-products-frontend
+npm install
+npm run dev
 ```
