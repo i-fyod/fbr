@@ -118,5 +118,25 @@ Swagger UI:
   - `GET /api/users`
   - `POST /api/users`
   - `GET /api/users/:id`
-  - `PATCH /api/users/:id`
-  - `DELETE /api/users/:id`
+- `PATCH /api/users/:id`
+- `DELETE /api/users/:id`
+
+## 7-8) Auth + Products API (JWT)
+
+Путь: `practice-07-08-auth-api/`
+
+Что сделано:
+- Регистрация/логин с хешированием пароля (bcryptjs)
+- JWT access token, маршрут `GET /api/auth/me`
+- CRUD по товарам (title, category, description, price)
+- Защищены `GET /api/products/:id`, `PUT /api/products/:id`, `DELETE /api/products/:id`
+
+Swagger UI:
+- `http://localhost:4000/api-docs` (или ваш `PORT`)
+
+Запуск:
+```bash
+cd practice-07-08-auth-api
+npm install
+npm start   # PORT=4000 по умолчанию
+```
