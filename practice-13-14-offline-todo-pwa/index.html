@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TODO Offline</title>
+    <meta name="description" content="Простой список дел с офлайн-режимом" />
+    <meta name="theme-color" content="#1f2937" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="TODO" />
+
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" href="./assets/icons/icon-96.png" type="image/png" />
+    <link rel="apple-touch-icon" href="./assets/icons/icon-192.png" />
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <div class="brand">TODO Offline</div>
+        <div id="net" class="net" aria-live="polite"></div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <h1 class="title">Список задач</h1>
+
+        <form id="form" class="form" autocomplete="off">
+          <label class="label">
+            Новая задача
+            <div class="row">
+              <input
+                id="input"
+                class="input"
+                placeholder="Например: купить хлеб"
+                maxlength="120"
+                required
+              />
+              <button class="btn" type="submit">Добавить</button>
+            </div>
+          </label>
+        </form>
+
+        <div id="empty" class="empty">Задач пока нет</div>
+        <ul id="list" class="list" aria-label="Задачи"></ul>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./sw.js");
+        });
+      }
+    </script>
+  </body>
+</html>

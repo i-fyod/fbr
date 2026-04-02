@@ -158,3 +158,20 @@ cd practice-08-09-auth-products-frontend
 npm install
 npm run dev
 ```
+
+## 13-14) Offline TODO (Service Worker + Manifest)
+
+Путь: `practice-13-14-offline-todo-pwa/`
+
+Что сделано:
+- TODO/заметки: просмотр и добавление
+- Сохранение данных в `localStorage`
+- Service Worker: регистрация + кэш статических ресурсов
+- Офлайн: страница грузится из кэша, добавление/просмотр задач работает
+- Manifest + минимум 3 PNG иконки
+
+Запуск:
+```bash
+cd practice-13-14-offline-todo-pwa
+python -m http.server 5174
+```
