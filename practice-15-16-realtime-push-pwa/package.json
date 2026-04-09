@@ -1,0 +1,8 @@
+{
+  "name": "practice-15-16-realtime-push-pwa",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve:https": "node ./https-server.js"
+  }
+}

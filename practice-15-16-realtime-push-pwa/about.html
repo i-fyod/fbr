@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>О нас — TODO PWA</title>
+    <meta name="description" content="О приложении TODO PWA" />
+    <meta name="theme-color" content="#1f2937" />
+
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" href="./assets/icons/icon-96.png" type="image/png" />
+    <link rel="apple-touch-icon" href="./assets/icons/icon-192.png" />
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <div class="brand"><a class="link" href="./index.html">TODO PWA</a></div>
+        <nav class="nav">
+          <a class="link" href="./index.html">Задачи</a>
+          <a class="link link--active" href="./about.html">О нас</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <h1 class="title">О нас</h1>
+        <p class="text">
+          Это учебное PWA-приложение: офлайн-режим, App Shell архитектура, HTTPS,
+          Web Push и Socket.IO.
+        </p>
+        <p class="text muted">
+          Страница должна открываться офлайн после первого посещения.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./sw.js");
+        });
+      }
+    </script>
+  </body>
+</html>

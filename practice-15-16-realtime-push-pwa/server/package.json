@@ -1,0 +1,14 @@
+{
+  "name": "practice-15-16-realtime-push-server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ./src/index.js",
+    "generate:vapid": "node ./src/scripts/generate-vapid.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1",
+    "web-push": "^3.6.7"
+  }
+}

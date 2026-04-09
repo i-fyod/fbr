@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TODO PWA</title>
+    <meta name="description" content="Простой список дел (PWA)" />
+    <meta name="theme-color" content="#1f2937" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="TODO" />
+
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" href="./assets/icons/icon-96.png" type="image/png" />
+    <link rel="apple-touch-icon" href="./assets/icons/icon-192.png" />
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <div class="brand"><a class="link" href="./index.html">TODO PWA</a></div>
+        <nav class="nav">
+          <a class="link link--active" href="./index.html">Задачи</a>
+          <a class="link" href="./about.html">О нас</a>
+        </nav>
+        <div id="net" class="net" aria-live="polite"></div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <h1 class="title">Список задач</h1>
+
+        <div class="tools">
+          <button id="pushSub" class="btn" type="button">Подписаться на Push</button>
+          <button id="pushUnsub" class="btn" type="button">Отписаться</button>
+          <button id="pushTest" class="btn" type="button">Тест Push</button>
+        </div>
+
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+        <form id="form" class="form" autocomplete="off">
+          <label class="label">
+            Новая задача
+            <div class="row">
+              <input
+                id="input"
+                class="input"
+                placeholder="Например: купить хлеб"
+                maxlength="120"
+                required
+              />
+              <button class="btn" type="submit">Добавить</button>
+            </div>
+          </label>
+        </form>
+
+        <div id="empty" class="empty">Задач пока нет</div>
+        <ul id="list" class="list" aria-label="Задачи"></ul>
+      </section>
+    </main>
+
+     <script src="./app.js"></script>
+     <script>
+       if ("serviceWorker" in navigator) {
+         window.addEventListener("load", () => {
+           navigator.serviceWorker.register("./sw.js");
+         });
+       }
+     </script>
+   </body>
+  </html>
