@@ -1,0 +1,17 @@
+{
+  "name": "practice-21-22-load-balancing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Load balancing practice with Nginx and HAProxy",
+  "scripts": {
+    "start:backend1": "PORT=3001 node backend/server.js",
+    "start:backend2": "PORT=3002 node backend/server.js",
+    "start:all": "concurrently \"npm run start:backend1\" \"npm run start:backend2\""
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
